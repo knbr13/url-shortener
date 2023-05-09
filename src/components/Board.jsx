@@ -21,7 +21,7 @@ const Board = () => {
       )}
 
       {showCards && (
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-2">
           {cards.map((card, index) => (
             <Card card={card} key={index}/>
           ))}
