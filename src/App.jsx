@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import './App.css'
+import Home from "./pages/Home";
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,18 +40,11 @@ function App() {
 
   return (
     <div>
-      <h2>React Google Login</h2>
-      {profile ? (
-        <div>
-          <img src={profile.picture} alt="user image" />
-          <h3>User Logged in</h3>
-          <p>Name: {profile.name}</p>
-          <p>Email Address: {profile.email}</p>
-          <button onClick={logOut}>Log out</button>
-        </div>
-      ) : (
-        <button onClick={() => login()}>Sign in with Google 🚀 </button>
-      )}
+      <BrowserRouter> 
+      <Routes> 
+        <Route path="/" element={profile ? <></> : <Home login={login}/>} />    
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
