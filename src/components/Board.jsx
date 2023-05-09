@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { cards } from "../data/cards";
 import Card from "./Card";
 import { shuffleCards } from "../utils/cards";
+import Results from "./Results";
+
 const Board = () => {
   const [showCards, setShowCards] = useState(false);
   const [shuffledCards, setShuffledCards] = useState(cards);
@@ -9,6 +11,7 @@ const Board = () => {
   const [cardOne, setCardOne] = useState(null);
   const [cardTwo, setCardTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  
   useEffect(() => {
     setShuffledCards(shuffleCards(cards));
   }, []);
@@ -45,7 +48,7 @@ const Board = () => {
   };
 
   return (
-    <div className="w-6/12 m-auto flex flex-col justify-center items-center">
+    <div className="w-6/12 m-auto flex flex-col gap-8 justify-center items-center">
       {!showCards && (
         <button
           onClick={handleStart}
@@ -72,7 +75,7 @@ const Board = () => {
           ))}
         </div>
       )}
-      
+      {showCards && <Results nbOfMoves={nbOfMoves}/>}
     </div>
   );
 };
