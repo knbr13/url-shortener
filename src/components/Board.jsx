@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cards } from "../data/cards";
 import Card from "./Card";
-
+import {shuffleCards} from "../utils/cards";
 const Board = () => {
   const [showCards, setShowCards] = useState(false);
-
+  const [shuffledCards, setShuffledCards] = useState(cards);
+  useEffect(() => {
+    setShuffledCards(shuffleCards(cards));
+  }, []);
   const handleStart = () => {
     setShowCards(true);
   };
@@ -23,7 +26,7 @@ const Board = () => {
       {showCards && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-2">
           {cards.map((card, index) => (
-            <Card card={card} key={index}/>
+            <Card card={card} key={index} />
           ))}
         </div>
       )}
