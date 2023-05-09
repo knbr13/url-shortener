@@ -5,7 +5,10 @@ export const shuffleCards = (cards) => {
     cards[i] = cards[j];
     cards[j] = temp;
   }
-  cards.forEach((card) => (card.matched = false));
+  cards.forEach((card, idx) => {
+    card.matched = false;
+    card.id = idx;
+  });
 
   return cards;
 };
