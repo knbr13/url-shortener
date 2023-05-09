@@ -29,11 +29,11 @@ const Card = ({
 
   return (
     <div
-      className="bg-gray-800 w-20 h-20 sm:w-24 sm:h-24 cursor-pointer p-[3px] rounded-lg md:w-fit"
+      className="bg-gray-800 w-20 h-20 sm:w-24 sm:h-24 cursor-pointer p-[1px] rounded-lg md:w-fit"
       onClick={card.matched || card.clicked || disabled ? null : handleClick}
     >
       {card.matched || card.clicked ? (
-        <img src={card.src} className="w-full object-cover rounded-lg" />
+        <img src={card.src} className="w-full h-[100%] object-cover rounded-lg" />
       ) : (
         <img
           src="src/assets/images/pirate.webp"

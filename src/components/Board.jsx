@@ -45,7 +45,7 @@ const Board = () => {
   };
 
   return (
-    <div className="w-6/12 m-auto flex justify-center items-center">
+    <div className="w-6/12 m-auto flex flex-col justify-center items-center">
       {!showCards && (
         <button
           onClick={handleStart}
@@ -72,6 +72,7 @@ const Board = () => {
           ))}
         </div>
       )}
+      
     </div>
   );
 };
