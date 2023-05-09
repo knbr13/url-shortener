@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { cards } from "../data/cards";
+import Card from "./Card";
 
 const Board = () => {
   const [showCards, setShowCards] = useState(false);
@@ -22,13 +23,7 @@ const Board = () => {
       {showCards && (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {cards.map((card, index) => (
-            <div key={index} className="bg-gray-800 p-[3px] rounded-lg w-fit">
-              <img
-                src={card.src}
-                alt={`Card ${index}`}
-                className="w-32 h-auto object-cover"
-              />
-            </div>
+            <Card card={card} key={index}/>
           ))}
         </div>
       )}
