@@ -11,11 +11,12 @@ const Board = () => {
   const [cardOne, setCardOne] = useState(null);
   const [cardTwo, setCardTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  
+  const [counterInterval, setCounterInterval] = useState(null);
+
   useEffect(() => {
     setShuffledCards(shuffleCards(cards));
   }, []);
-  
+
   useEffect(() => {
     if (cardOne?.src == cardTwo?.src) {
       setShuffledCards(
@@ -40,6 +41,10 @@ const Board = () => {
         setDisabled(false);
       }, 1000);
     }
+    if (shuffledCards.every((elem) => elem.matched === true)) {
+      clearInterval(counterInterval);
+      setDisabled(true);
+    }
   }, [cardTwo]);
 
   const handleStart = () => {
@@ -52,7 +57,7 @@ const Board = () => {
       {!showCards && (
         <button
           onClick={handleStart}
-          className="bg-blue-500 hover:bg-blue-700 mt-9 text-white font-bold py-2 px-4 rounded"
+          className="bg-slate-700 mt-9 hover:bg-slate-800 font-bold py-2 px-4 rounded"
         >
           Start
         </button>
@@ -75,7 +80,15 @@ const Board = () => {
           ))}
         </div>
       )}
-      {showCards && <Results nbOfMoves={nbOfMoves}/>}
+      {showCards && (
+        <Results
+          nbOfMoves={nbOfMoves}
+          setCounterInterval={setCounterInterval}
+          setShuffledCards={setShuffledCards}
+          counterInterval={counterInterval}
+          setNbOfMoves={setNbOfMoves}
+        />
+      )}
     </div>
   );
 };

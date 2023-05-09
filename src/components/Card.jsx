@@ -6,7 +6,7 @@ const Card = ({
   setCardOne,
   shuffledCards,
   setShuffledCards,
-  disabled
+  disabled,
 }) => {
   const handleClick = () => {
     setNbOfMoves((prevNum) => prevNum + 1);
@@ -33,7 +33,10 @@ const Card = ({
       onClick={card.matched || card.clicked || disabled ? null : handleClick}
     >
       {card.matched || card.clicked ? (
-        <img src={card.src} className="w-full h-[100%] object-cover rounded-lg" />
+        <img
+          src={card.src}
+          className="w-full h-[100%] object-cover rounded-lg"
+        />
       ) : (
         <img
           src="src/assets/images/pirate.webp"
