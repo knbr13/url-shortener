@@ -1,17 +1,49 @@
 import { useEffect, useState } from "react";
 import { cards } from "../data/cards";
 import Card from "./Card";
-import {shuffleCards} from "../utils/cards";
+import { shuffleCards } from "../utils/cards";
 const Board = () => {
   const [showCards, setShowCards] = useState(false);
   const [shuffledCards, setShuffledCards] = useState(cards);
+  const [nbOfMoves, setNbOfMoves] = useState(0);
+  const [cardOne, setCardOne] = useState(null);
+  const [cardTwo, setCardTwo] = useState(null);
+  const [disabled, setDisabled] = useState(false);
   useEffect(() => {
     setShuffledCards(shuffleCards(cards));
   }, []);
+  
+  useEffect(() => {
+    if (cardOne?.src == cardTwo?.src) {
+      setShuffledCards(
+        shuffledCards.map((card) =>
+          card.src == cardOne?.src ? { ...card, matched: true } : card
+        )
+      );
+      setCardOne(null);
+      setCardTwo(null);
+    } else {
+      setDisabled(true);
+      setTimeout(() => {
+        setShuffledCards(
+          shuffledCards.map((card) =>
+            card.src == cardOne?.src || card.src == cardTwo?.src
+              ? { ...card, clicked: false }
+              : card
+          )
+        );
+        setCardOne(null);
+        setCardTwo(null);
+        setDisabled(false);
+      }, 1000);
+    }
+  }, [cardTwo]);
+
   const handleStart = () => {
     setShowCards(true);
+    setNbOfMoves(0);
   };
-  console.log(cards);
+
   return (
     <div className="w-6/12 m-auto flex justify-center items-center">
       {!showCards && (
@@ -25,8 +57,18 @@ const Board = () => {
 
       {showCards && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-2">
-          {cards.map((card, index) => (
-            <Card card={card} key={index} />
+          {shuffledCards.map((card, index) => (
+            <Card
+              setNbOfMoves={setNbOfMoves}
+              card={card}
+              setCardOne={setCardOne}
+              setCardTwo={setCardTwo}
+              cardOne={cardOne}
+              key={index}
+              shuffledCards={shuffledCards}
+              setShuffledCards={setShuffledCards}
+              disabled={disabled}
+            />
           ))}
         </div>
       )}
