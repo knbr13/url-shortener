@@ -4,6 +4,7 @@ import Card from "./Card";
 import { shuffleCards } from "../utils/cards";
 import Results from "./Results";
 import { updateScore } from "../api/userAPI";
+import WinPopup from "./WinPopup";
 
 const Board = () => {
   const [showCards, setShowCards] = useState(false);
@@ -14,6 +15,7 @@ const Board = () => {
   const [disabled, setDisabled] = useState(false);
   const [counterInterval, setCounterInterval] = useState(null);
   const [counter, setCounter] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     setShuffledCards(shuffleCards(cards));
@@ -46,6 +48,7 @@ const Board = () => {
     if (shuffledCards.every((elem) => elem.matched === true)) {
       clearInterval(counterInterval);
       setDisabled(true);
+      setShowPopup(true);
       const updateResults = async () => {
         try {
           await updateScore({
@@ -94,6 +97,12 @@ const Board = () => {
           ))}
         </div>
       )}
+      {showPopup && (
+        <WinPopup
+          onClose={() => setShowPopup(false)}
+        />
+      )}
+
       {showCards && (
         <Results
           nbOfMoves={nbOfMoves}

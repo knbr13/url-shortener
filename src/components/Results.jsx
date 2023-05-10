@@ -40,7 +40,7 @@ const Results = ({
         <h1 className="text-base md:text-lg text-gray-800">Time: {counter}</h1>
       </div>
       <button
-        className="w-fit bg-slate-700 hover:bg-slate-800"
+        className="w-fit"
         onClick={handleRestart}
       >
         restart
