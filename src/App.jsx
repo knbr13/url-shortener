@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Game from "./pages/Game";
+import { addUser } from "./api/userAPI";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -21,7 +22,6 @@ function App() {
           `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
           {
             headers: {
-
               Authorization: `Bearer ${user.access_token}`,
               Accept: "application/json",
             },
@@ -34,6 +34,18 @@ function App() {
     }
   }, [user]);
 
+  useEffect(() => {
+    const addMe = async () => {
+      try {
+        const { data } = await addUser(profile);
+        localStorage.setItem("userCreds", JSON.stringify(data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (profile) addMe();
+  }, [profile]);
+
   // const logOut = () => {
   //   googleLogout();
   //   setProfile(null);
@@ -43,8 +55,16 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={profile ? <Navigate to={'/game'}/> : <Home login={login} />} />
-          <Route path="/game" element={profile ? <Game /> : <Navigate to={'/'}/>} />
+          <Route
+            path="/"
+            element={
+              profile ? <Navigate to={"/game"} /> : <Home login={login} />
+            }
+          />
+          <Route
+            path="/game"
+            element={profile ? <Game /> : <Navigate to={"/"} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
