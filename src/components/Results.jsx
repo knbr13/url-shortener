@@ -8,8 +8,10 @@ const Results = ({
   setShuffledCards,
   counterInterval,
   setNbOfMoves,
+  counter,
+  setCounter,
+  setDisabled,
 }) => {
-  const [counter, setCounter] = useState(0);
   useEffect(() => {
     const counterInterval = setInterval(() => {
       setCounter((prevState) => prevState + 1);
@@ -22,6 +24,7 @@ const Results = ({
     setShuffledCards(shuffleCards(cards));
     clearInterval(counterInterval);
     setNbOfMoves(0);
+    setDisabled(false);
     const counterInterval1 = setInterval(() => {
       setCounter((prevState) => prevState + 1);
     }, 1000);

@@ -3,6 +3,7 @@ import { cards } from "../data/cards";
 import Card from "./Card";
 import { shuffleCards } from "../utils/cards";
 import Results from "./Results";
+import { updateScore } from "../api/userAPI";
 
 const Board = () => {
   const [showCards, setShowCards] = useState(false);
@@ -12,6 +13,7 @@ const Board = () => {
   const [cardTwo, setCardTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [counterInterval, setCounterInterval] = useState(null);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     setShuffledCards(shuffleCards(cards));
@@ -44,6 +46,18 @@ const Board = () => {
     if (shuffledCards.every((elem) => elem.matched === true)) {
       clearInterval(counterInterval);
       setDisabled(true);
+      const updateResults = async () => {
+        try {
+          await updateScore({
+            email: JSON.parse(localStorage.getItem("userCreds")).email,
+            flipsScore: nbOfMoves,
+            timeScore: counter,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      updateResults();
     }
   }, [cardTwo]);
 
@@ -87,6 +101,9 @@ const Board = () => {
           setShuffledCards={setShuffledCards}
           counterInterval={counterInterval}
           setNbOfMoves={setNbOfMoves}
+          counter={counter}
+          setCounter={setCounter}
+          setDisabled={setDisabled}
         />
       )}
     </div>
