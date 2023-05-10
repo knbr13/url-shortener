@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Game from "./pages/Game";
 import { addUser } from "./api/userAPI";
+import LeaderBoard from "./pages/LeaderBoard";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -64,6 +65,10 @@ function App() {
           <Route
             path="/game"
             element={profile ? <Game /> : <Navigate to={"/"} />}
+          />
+          <Route
+            path="/leaderboard"
+            element={profile ? <LeaderBoard /> : <Navigate to={"/"} />}
           />
         </Routes>
       </BrowserRouter>

@@ -74,7 +74,7 @@ const Board = () => {
       {!showCards && (
         <button
           onClick={handleStart}
-          className="bg-slate-700 mt-9 hover:bg-slate-800 font-bold py-2 px-4 rounded"
+          className="font-bold py-2 px-4 rounded"
         >
           Start
         </button>
