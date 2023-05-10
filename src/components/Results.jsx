@@ -17,6 +17,9 @@ const Results = ({
       setCounter((prevState) => prevState + 1);
     }, 1000);
     setCounterInterval(counterInterval);
+    return ()=>{
+      clearInterval(counterInterval);
+    }
   }, []);
 
   const handleRestart = () => {
