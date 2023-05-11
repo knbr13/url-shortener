@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cards } from "../data/cards";
 import Card from "./Card";
 import { shuffleCards } from "../utils/cards";
 import Results from "./Results";
 import { updateScore } from "../api/userAPI";
 import WinPopup from "./WinPopup";
+import { UserContext } from "../context/userContext";
 
 const Board = () => {
   const [showCards, setShowCards] = useState(false);
@@ -20,6 +21,8 @@ const Board = () => {
   useEffect(() => {
     setShuffledCards(shuffleCards(cards));
   }, []);
+
+  const userCreds = useContext(UserContext);
 
   useEffect(() => {
     if (cardOne?.src == cardTwo?.src) {
@@ -52,7 +55,7 @@ const Board = () => {
       const updateResults = async () => {
         try {
           await updateScore({
-            email: JSON.parse(localStorage.getItem("userCreds")).email,
+            email: userCreds.user.email,
             flipsScore: nbOfMoves,
             timeScore: counter,
           });
