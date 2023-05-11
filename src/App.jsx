@@ -19,6 +19,8 @@ function App() {
       ? JSON.parse(localStorage.getItem("userAuth"))
       : null
   );
+  const userCreds = useContext(UserContext);
+  console.log(userCreds);
   const [profile, setProfile] = useState(null);
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -51,17 +53,19 @@ function App() {
         .then((res) => {
           setProfile(res.data);
         })
-        .catch((err) => {});
+        .catch((err) => console.log(err));
     }
   }, [user]);
-  const userCreds = useContext(UserContext);
+
   useEffect(() => {
     const addMe = async () => {
       try {
         const { data } = await addUser(profile);
         localStorage.setItem("userCreds", JSON.stringify(data));
         userCreds.setUser(data);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     };
     if (profile) addMe();
   }, [profile]);
