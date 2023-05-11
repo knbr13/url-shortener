@@ -1,3 +1,5 @@
+import { formatTime } from "../utils/format";
+
 const Score = ({ user, index, scoreField }) => {
   return (
     <div
@@ -10,8 +12,8 @@ const Score = ({ user, index, scoreField }) => {
         <p className="text-sm sm:text-lg md:text-xl text-black">{user.name}</p>
         <p className="text-xs sm:text:sm md:text-base text-gray-700 break-words">{user.email}</p>
       </div>
-      <p className="text-base md:text-lg lg:text-xl text-gray-800 bg-gray-300 rounded-lg px-2 bg-opacity-80">
-        {scoreField == "timeScore" ? user.timeScore : user.flipsScore}
+      <p className="text-[10px] sm:text-xs md:text-sm lg:text-base w-2/12 text-gray-800 break-words bg-gray-300 rounded-lg px-2 bg-opacity-80">
+        {scoreField == "timeScore" ? formatTime(user.timeScore) : user.flipsScore}
       </p>
     </div>
   );
