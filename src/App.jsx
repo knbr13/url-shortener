@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import "./App.css";
 import Home from "./pages/Home";
@@ -65,11 +65,6 @@ function App() {
     };
     if (profile) addMe();
   }, [profile]);
-
-  // const logOut = () => {
-  //   googleLogout();
-  //   setProfile(null);
-  // };
 
   return (
     <div>

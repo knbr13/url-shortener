@@ -54,11 +54,12 @@ const Board = () => {
       setShowPopup(true);
       const updateResults = async () => {
         try {
-          await updateScore({
+          const { data } = await updateScore({
             email: userCreds.user.email,
             flipsScore: nbOfMoves,
             timeScore: counter,
           });
+          userCreds.setUser(data);
         } catch (error) {}
       };
       updateResults();
