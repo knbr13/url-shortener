@@ -5,12 +5,12 @@ const Score = ({ user, index, scoreField }) => {
       key={index}
     >
       <p className="absolute left-1 top-1 bg-gray-300 px-1 rounded-full text-gray-800 md:text-xl">{index + 1}</p>
-      <img src={user.picture} className="rounded-full w-12 md:w-16" />
-      <div className="bg-gray-300 rounded-lg px-2 bg-opacity-80">
-        <p className="text-sm sm:text-lg md:text-xl text-gray-800">{user.name}</p>
-        <p className="text-xs sm:text:sm md:text-base text-gray-700">{user.email}</p>
+      <img src={user.picture} className="rounded-full w-10 md:w-14" />
+      <div className="bg-gray-300 w-6/12 overflow-x-hidden rounded-lg px-2 bg-opacity-80">
+        <p className="text-sm sm:text-lg md:text-xl text-black">{user.name}</p>
+        <p className="text-xs sm:text:sm md:text-base text-gray-700 break-words">{user.email}</p>
       </div>
-      <p className="text-xl md:text-3xl text-gray-800 bg-gray-300 rounded-lg px-2 bg-opacity-80">
+      <p className="text-base md:text-lg lg:text-xl text-gray-800 bg-gray-300 rounded-lg px-2 bg-opacity-80">
         {scoreField == "timeScore" ? user.timeScore : user.flipsScore}
       </p>
     </div>

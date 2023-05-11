@@ -8,7 +8,7 @@ const ScoresBoard = ({ users, totalPages, onPageChange, currentPage, scoreField,
       <div className="flex relative justify-around items-center border-b border-gray-800">
         <p className="text-sm md:text-lg text-gray-800">Picture</p>
         <p className="text-sm md:text-lg text-gray-800">name + email</p>
-        <p className="text-sm md:text-lg text-gray-800">nb of flips</p>
+        <p className="text-sm md:text-lg text-gray-800">{scoreField === "timeScore" ? "time": "flips"}</p>
       </div>
       {users?.map((user, index) => {
         return <Score key={index} user={user} index={index} scoreField={scoreField} />;
