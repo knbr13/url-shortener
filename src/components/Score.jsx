@@ -5,7 +5,7 @@ const Score = ({user, index}) => {
       key={index}
     >
       <p className="absolute left-2 text-gray-800 md:text-xl">{index + 1}</p>
-      <img src={user.picture} className="rounded-full w-12 md:w-20" />
+      <img src={user.picture} className="rounded-full w-12 md:w-16" />
       <div>
         <p className="text-lg md:text-2xl text-gray-800">{user.name}</p>
         <p className="text-sm md:text-lg text-gray-700">{user.email}</p>

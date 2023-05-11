@@ -28,7 +28,6 @@ const LeaderBoard = () => {
         pageNumber: num,
         scoreField,
       });
-      console.log(data)
       setUsers(data.users);
     } catch (error) {
       console.log(error);
@@ -37,7 +36,17 @@ const LeaderBoard = () => {
   return (
     <div className="p-1 flex flex-col gap-2">
       <Navbar />
-      <ScoresBoard users={users} totalPages={totalPages} onPageChange={onPageChange}/>
+      <div className="w-11/12 text-center md:w-9/12 lg:w-7/12 flex m-auto justify-around bg-gray-300 bg-opacity-50 rounded-lg">
+        <p className="text-gray-800 p-2 hover:bg-gray-300 rounded-lg cursor-pointer">Flips Score</p>
+        <p className="text-gray-800 p-2 hover:bg-gray-300 rounded-lg cursor-pointer">Time Score</p>
+      </div>
+      <ScoresBoard
+        users={users}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+        scoreField={scoreField}
+        setScoreField={setScoreField}
+      />
     </div>
   );
 };
