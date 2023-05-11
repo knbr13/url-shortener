@@ -7,7 +7,10 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Game from "./pages/Game";
 import { addUser } from "./api/userAPI";
 import LeaderBoard from "./pages/LeaderBoard";
-import { generateDateAfterSeconds, reloadIfTokenIsNoLongerValid } from "./utils/validateToken";
+import {
+  generateDateAfterSeconds,
+  reloadIfTokenIsNoLongerValid,
+} from "./utils/validateToken";
 
 function App() {
   const [user, setUser] = useState(
@@ -19,10 +22,10 @@ function App() {
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setUser(codeResponse);
-      localStorage.setItem("userAuth", JSON.stringify(generateDateAfterSeconds(codeResponse)));
+      localStorage.setItem("userAuth", JSON.stringify(codeResponse));
       localStorage.setItem(
         "expiryDate",
-        JSON.stringify(codeResponse.expires_in)
+        JSON.stringify(generateDateAfterSeconds(codeResponse.expires_in))
       );
     },
     onError: (error) => alert("Login Failed:", error),
