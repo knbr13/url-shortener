@@ -13,7 +13,7 @@ function App() {
   const [profile, setProfile] = useState(null);
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
+    onError: (error) => alert("Login Failed:", error),
   });
 
   useEffect(() => {
