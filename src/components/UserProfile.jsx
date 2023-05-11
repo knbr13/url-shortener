@@ -18,10 +18,10 @@ const UserProfile = () => {
       className="bg-gray-300 bg-opacity-80 rounded-2xl p-1 cursor-pointer"
       onClick={() => setUserProfilePopup(true)}
     >
-      <img
-        src={userCreds.user?.picture ?? ProfilePicture}
+      {userCreds.user?.picture && <img
+        src={userCreds.user.picture}
         className="rounded-full w-10 md:w-12"
-      />
+      />}
       {userProfilePopup && (
         <div className="absolute top-20 gap-2 items-center z-10 bg-gray-300 bg-opacity-95 p-2 rounded-lg left-[20%] sm:left-[42%] flex flex-col">
           <p
@@ -33,7 +33,7 @@ const UserProfile = () => {
           >
             X
           </p>
-          <img className="rounded-full" src={userCreds.user?.picture} />
+          <img className="rounded-full" src={userCreds.user?.picture ?? ""} />
           <p className="text-gray-800">{userCreds.user.name}</p>
           <p className="text-gray-600">{userCreds.user.email}</p>
           {userCreds.user.timeScore && (
