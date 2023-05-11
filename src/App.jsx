@@ -9,10 +9,17 @@ import { addUser } from "./api/userAPI";
 import LeaderBoard from "./pages/LeaderBoard";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    localStorage.getItem("userAuth")
+      ? JSON.parse(localStorage.getItem("userAuth"))
+      : null
+  );
   const [profile, setProfile] = useState(null);
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
+    onSuccess: (codeResponse) => {
+      setUser(codeResponse);
+      localStorage.setItem("userAuth", JSON.stringify(codeResponse));
+    },
     onError: (error) => alert("Login Failed:", error),
   });
 
