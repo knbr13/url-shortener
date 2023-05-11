@@ -56,9 +56,7 @@ const Board = () => {
             flipsScore: nbOfMoves,
             timeScore: counter,
           });
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       };
       updateResults();
     }
@@ -72,10 +70,7 @@ const Board = () => {
   return (
     <div className="w-6/12 m-auto flex flex-col gap-8 justify-center items-center">
       {!showCards && (
-        <button
-          onClick={handleStart}
-          className="font-bold py-2 px-4 rounded"
-        >
+        <button onClick={handleStart} className="font-bold py-2 px-4 rounded">
           Start
         </button>
       )}
@@ -97,11 +92,7 @@ const Board = () => {
           ))}
         </div>
       )}
-      {showPopup && (
-        <WinPopup
-          onClose={() => setShowPopup(false)}
-        />
-      )}
+      {showPopup && <WinPopup onClose={() => setShowPopup(false)} />}
 
       {showCards && (
         <Results

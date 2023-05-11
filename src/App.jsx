@@ -50,7 +50,7 @@ function App() {
         .then((res) => {
           setProfile(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     }
   }, [user]);
 
@@ -59,9 +59,7 @@ function App() {
       try {
         const { data } = await addUser(profile);
         localStorage.setItem("userCreds", JSON.stringify(data));
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
     if (profile) addMe();
   }, [profile]);
