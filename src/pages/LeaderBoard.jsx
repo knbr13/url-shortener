@@ -9,6 +9,7 @@ const LeaderBoard = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [scoreField, setScoreField] = useState("flipsScore");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -16,20 +17,20 @@ const LeaderBoard = () => {
         const { data } = await getUsersWithHighestScores();
         setUsers(data.users);
         setTotalPages(data.totalPages);
-        console.log(data.users)
-      } catch (error) {console.log(error)}
+      } catch (error) {}
     };
     fetchUsers();
   }, []);
   useEffect(() => {
+    setLoading(true);
     const fetchUsers = async () => {
       try {
         const { data } = await getUsersWithHighestScores({ scoreField });
         setUsers(data.users);
         setTotalPages(data.totalPages);
-        console.log(data.users)
+        setLoading(false);
       } catch (error) {
-        console.log(error)
+        setLoading(false);
       }
     };
     fetchUsers();
@@ -47,7 +48,7 @@ const LeaderBoard = () => {
   return (
     <div className="p-1 flex flex-col gap-2">
       <Navbar />
-      <SortScores scoreField={scoreField} setScoreField={setScoreField} />
+      <SortScores scoreField={scoreField} setScoreField={setScoreField} loading={loading}/>
       <ScoresBoard
         users={users}
         totalPages={totalPages}
