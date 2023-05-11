@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { googleLogout } from "@react-oauth/google";
-import ProfilePicture from "/src/assets/images/ProfileImg.webp";
 
 const UserProfile = () => {
   const [userProfilePopup, setUserProfilePopup] = useState(false);
