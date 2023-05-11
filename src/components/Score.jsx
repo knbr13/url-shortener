@@ -1,4 +1,4 @@
-const Score = ({user, index}) => {
+const Score = ({ user, index, scoreField }) => {
   return (
     <div
       className="flex relative justify-around items-center border-b p-1 border-gray-500"
@@ -10,7 +10,9 @@ const Score = ({user, index}) => {
         <p className="text-lg md:text-2xl text-gray-800">{user.name}</p>
         <p className="text-sm md:text-lg text-gray-700">{user.email}</p>
       </div>
-      <p className="text-xl md:text-3xl text-gray-800">{user.flipsScore}</p>
+      <p className="text-xl md:text-3xl text-gray-800">
+        {scoreField == "timeScore" ? user.timeScore : user.flipsScore}
+      </p>
     </div>
   );
 };
