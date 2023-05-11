@@ -24,6 +24,7 @@ const LeaderBoard = () => {
   useEffect(() => {
     setLoading(true);
     const fetchUsers = async () => {
+      setCurrentPage(1);
       try {
         const { data } = await getUsersWithHighestScores({ scoreField });
         setUsers(data.users);
@@ -48,7 +49,11 @@ const LeaderBoard = () => {
   return (
     <div className="p-1 flex flex-col gap-2">
       <Navbar />
-      <SortScores scoreField={scoreField} setScoreField={setScoreField} loading={loading}/>
+      <SortScores
+        scoreField={scoreField}
+        setScoreField={setScoreField}
+        loading={loading}
+      />
       <ScoresBoard
         users={users}
         totalPages={totalPages}
