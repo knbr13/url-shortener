@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import "./App.css";
@@ -11,6 +11,7 @@ import {
   generateDateAfterSeconds,
   reloadIfTokenIsNoLongerValid,
 } from "./utils/validateToken";
+import { UserContext } from "./context/userContext";
 
 function App() {
   const [user, setUser] = useState(
@@ -53,12 +54,13 @@ function App() {
         .catch((err) => {});
     }
   }, [user]);
-
+  const userCreds = useContext(UserContext);
   useEffect(() => {
     const addMe = async () => {
       try {
         const { data } = await addUser(profile);
         localStorage.setItem("userCreds", JSON.stringify(data));
+        userCreds.setUser(data);
       } catch (error) {}
     };
     if (profile) addMe();
