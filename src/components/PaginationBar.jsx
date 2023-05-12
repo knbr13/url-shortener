@@ -7,8 +7,8 @@ const PaginationBar = ({ currentPage, totalPages, onPageChange }) => {
         onClick={() => onPageChange(i)}
         className={
           i == currentPage
-            ? "bg-gray-300 underline m-1 py-1 px-3 rounded-2xl hover:bg-gray-400"
-            : "bg-gray-300 hover:bg-gray-400 w-full"
+            ? "bg-gray-300 underline hover:bg-gray-400"
+            : "bg-gray-300 hover:bg-gray-400"
         }
       >
         {i}
