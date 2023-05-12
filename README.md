@@ -29,7 +29,7 @@ To get started with the Online Memory Game frontend, follow these steps:
 1. Clone the repository: `https://github.com/abdullah-alaadine/online-memory-game-client/`
 2. Install the dependencies: `npm install`
 3. Configure the backend API endpoint in API folder and Google OAuth credentials in the `.env` file.
-4. Start the development server: `npm start`
+4. Start the development server: `npm run dev`
 
 Make sure to also set up and run the backend server by referring to the backend repository.
 
