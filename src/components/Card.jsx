@@ -39,7 +39,7 @@ const Card = ({
         />
       ) : (
         <img
-          src="src/assets/images/pirate.webp"
+          src="/images/pirate.webp"
           className=" w-full h-[100%] rounded-lg"
         />
       )}
