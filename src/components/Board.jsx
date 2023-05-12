@@ -72,7 +72,7 @@ const Board = () => {
   };
 
   return (
-    <div className="w-6/12 m-auto flex flex-col gap-8 justify-center items-center">
+    <div className="w-8/12 sm:w-6/12 m-auto flex flex-col gap-8 justify-center items-center">
       {!showCards && (
         <button onClick={handleStart} className="font-bold py-2 px-4 rounded">
           Start
@@ -80,7 +80,7 @@ const Board = () => {
       )}
 
       {showCards && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-2">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-2">
           {shuffledCards.map((card, index) => (
             <Card
               setNbOfMoves={setNbOfMoves}
