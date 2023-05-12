@@ -11,7 +11,7 @@ const ScoresBoard = ({ users, totalPages, onPageChange, currentPage, scoreField,
         <p className="text-sm md:text-lg text-gray-800">{scoreField === "timeScore" ? "time": "flips"}</p>
       </div>
       {users?.map((user, index) => {
-        return <Score key={index} user={user} index={index} scoreField={scoreField} />;
+        return <Score key={index} user={user} index={index} currentPage={currentPage} scoreField={scoreField} />;
       })}
       {totalPages > 1 && <PaginationBar onPageChange={onPageChange} totalPages={totalPages} currentPage={currentPage}/>}
     </div>
