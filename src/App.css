@@ -1,5 +1,5 @@
 body {
-  background: url("./assets/images/wallpaper.jpg");
+  background: url("/images/wallpaper.jpg");
   object-fit: cover;
   background-size: cover;
 }
