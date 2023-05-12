@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const userAPI = axios.create({ baseURL: "https://worrisome-fox-tank-top.cyclic.app/user" });
+const userAPI = axios.create({ baseURL: `${import.meta.env.VITE_SERVER_ENDPOINT}/user` });
 
 export const addUser = (data) => userAPI.post("/", data);
 export const updateScore = (data) => userAPI.put("/score", data);
