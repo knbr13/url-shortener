@@ -60,11 +60,8 @@ const Board = () => {
             timeScore: counter,
           });
           localStorage.setItem("userCreds", JSON.stringify(data));
-          console.log(data);
           userCreds.setUser(data);
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       };
       if (userCreds.user) updateResults();
     }

@@ -19,7 +19,7 @@ function App() {
       ? JSON.parse(localStorage.getItem("userAuth"))
       : null
   );
-  const userCreds = useContext(UserContext);  
+  const userCreds = useContext(UserContext);
   const [profile, setProfile] = useState(null);
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -52,7 +52,7 @@ function App() {
         .then((res) => {
           setProfile(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     }
   }, [user]);
 
@@ -62,9 +62,7 @@ function App() {
         const { data } = await addUser(profile);
         localStorage.setItem("userCreds", JSON.stringify(data));
         userCreds.setUser(data);
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     };
     if (profile) addMe();
   }, [profile]);
@@ -79,14 +77,8 @@ function App() {
               profile ? <Navigate to={"/game"} /> : <Home login={login} />
             }
           />
-          <Route
-            path="/game"
-            element={<Game />}
-          />
-          <Route
-            path="/leaderboard"
-            element={<LeaderBoard />}
-          />
+          <Route path="/game" element={<Game />} />
+          <Route path="/leaderboard" element={<LeaderBoard />} />
         </Routes>
       </BrowserRouter>
     </div>
