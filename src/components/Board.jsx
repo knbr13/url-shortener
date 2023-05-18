@@ -59,10 +59,14 @@ const Board = () => {
             flipsScore: nbOfMoves,
             timeScore: counter,
           });
+          localStorage.setItem("userCreds", JSON.stringify(data));
+          console.log(data);
           userCreds.setUser(data);
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       };
-      if(userCreds.user) updateResults();
+      if (userCreds.user) updateResults();
     }
   }, [cardTwo]);
 
