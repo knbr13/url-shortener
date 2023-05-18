@@ -62,7 +62,7 @@ const Board = () => {
           userCreds.setUser(data);
         } catch (error) {}
       };
-      updateResults();
+      if(userCreds.user) updateResults();
     }
   }, [cardTwo]);
 
