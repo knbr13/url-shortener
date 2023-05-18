@@ -16,7 +16,7 @@ const PaginationBar = ({ currentPage, totalPages, onPageChange }) => {
     );
   }
   return (
-    <div className="flex flex-wrap gap-4 text-xs md:text-base rounded-lg bg-gray-300 px-4 w-fit self-center text-slate-800">
+    <div className="flex flex-wrap gap-4 text-xs md:text-sm lg:text-base rounded-lg bg-gray-300 px-4 w-fit self-center text-slate-800">
       {pages}
     </div>
   );
