@@ -19,8 +19,7 @@ function App() {
       ? JSON.parse(localStorage.getItem("userAuth"))
       : null
   );
-  const userCreds = useContext(UserContext);
-  console.log(userCreds);
+  const userCreds = useContext(UserContext);  
   const [profile, setProfile] = useState(null);
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -82,11 +81,11 @@ function App() {
           />
           <Route
             path="/game"
-            element={profile ? <Game /> : <Navigate to={"/"} />}
+            element={<Game />}
           />
           <Route
             path="/leaderboard"
-            element={profile ? <LeaderBoard /> : <Navigate to={"/"} />}
+            element={<LeaderBoard />}
           />
         </Routes>
       </BrowserRouter>
