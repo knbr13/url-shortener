@@ -33,3 +33,8 @@ func (u *urlStore) getByShortenedURL(su string) (URL, error) {
 		Scan(&url.Id, &url.Original, &url.Short, &url.Expires, &url.CreatedAt)
 	return url, err
 }
+
+func (u *urlStore) deleteById(id int) error {
+	_, err := u.db.Exec("DELETE FROM urls WHERE id =?", id)
+	return err
+}

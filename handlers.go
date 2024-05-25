@@ -70,16 +70,17 @@ func (a *App) RedirectToShortenedURL(w http.ResponseWriter, r *http.Request) {
 	url, err := a.u.getByShortenedURL(path)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			app.errorResponse(w, http.StatusNotFound, "short url not found")
+			a.errorResponse(w, http.StatusNotFound, "short url not found")
 			return
 		}
-		app.errorResponse(w, http.StatusInternalServerError, "internal server error")
+		a.errorResponse(w, http.StatusInternalServerError, "internal server error")
 		fmt.Fprintf(os.Stderr, "internal server error: %v\n", err)
 		return
 	}
 
 	if url.Expires != nil && url.Expires.Before(time.Now()) {
-		app.errorResponse(w, http.StatusGone, "short url expired")
+		a.errorResponse(w, http.StatusGone, "short url expired")
+		go a.u.deleteById(url.Id)
 		return
 	}
 
