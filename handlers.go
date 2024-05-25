@@ -4,7 +4,9 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/go-sql-driver/mysql"
@@ -33,7 +35,7 @@ func (a *App) ShortenURL(w http.ResponseWriter, r *http.Request) {
 		t, err := time.Parse(time.DateOnly, reqBody.ExpireAt)
 		if err != nil {
 			v.AddError("expire_at", "invalid 'expire_at' parameter")
-		} else if t.Before(time.Now()) {
+		} else if now := time.Now(); t.Before(time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())) {
 			v.AddError("expire_at", "invalid 'expire_at' parameter")
 		} else {
 			reqBody.ExpireTime = t
@@ -52,7 +54,9 @@ func (a *App) ShortenURL(w http.ResponseWriter, r *http.Request) {
 			Number: 1062,
 		}) {
 			app.errorResponse(w, http.StatusBadRequest, "short url already exists")
+			return
 		}
+		fmt.Fprintf(os.Stderr, "internal server error: %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -70,6 +74,7 @@ func (a *App) RedirectToShortenedURL(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		app.errorResponse(w, http.StatusInternalServerError, "internal server error")
+		fmt.Fprintf(os.Stderr, "internal server error: %v\n", err)
 		return
 	}
 

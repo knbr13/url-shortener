@@ -18,7 +18,7 @@ type URL struct {
 }
 
 func (u *urlStore) insertUrl(original, short string, expireTime time.Time) (int64, error) {
-	res, err := u.db.Exec("INSERT INTO urls (original, short, expires_at) VALUES (?,?,?)", original, short, expireTime)
+	res, err := u.db.Exec("INSERT INTO urls (original_url, short_url, expires_at) VALUES (?,?,?)", original, short, expireTime)
 	if err != nil {
 		return 0, err
 	}
@@ -29,7 +29,7 @@ func (u *urlStore) insertUrl(original, short string, expireTime time.Time) (int6
 func (u *urlStore) getByShortenedURL(su string) (URL, error) {
 	var url URL
 	err := u.db.
-		QueryRow("SELECT id, original_url, short_url, expires_at, created_at FROM urls WHERE short =?", su).
+		QueryRow("SELECT id, original_url, short_url, expires_at, created_at FROM urls WHERE short_url = ?", su).
 		Scan(&url.Id, &url.Original, &url.Short, &url.Expires, &url.CreatedAt)
 	return url, err
 }
