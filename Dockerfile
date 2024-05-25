@@ -12,4 +12,8 @@ RUN apk --no-cache add ca-certificates
 
 RUN go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
-CMD ["sh", "-c", "migrate -path=./migrations -database=mysql://$MYSQL_URL_DB_DSN up && ./server"]
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
