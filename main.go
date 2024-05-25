@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -22,9 +21,8 @@ type App struct {
 var app App
 
 func main() {
-	var dsn string
-	var port int
-	flag.IntVar(&port, "port", 4000, "API server port")
+	var dsn, port string
+	flag.StringVar(&port, "port", os.Getenv("URL_PORT"), "API server port")
 	flag.StringVar(&dsn, "db-dsn", os.Getenv("MYSQL_URL_DB_DSN"), "MySQL DSN")
 	flag.Parse()
 
@@ -34,10 +32,15 @@ func main() {
 	}
 	defer db.Close()
 
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	app = App{db, &urlStore{db}}
 
 	setupRoutes()
 
 	log.Println("server starting...")
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+	log.Fatal(http.ListenAndServe(port, nil))
 }

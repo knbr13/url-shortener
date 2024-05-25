@@ -15,10 +15,10 @@ import (
 
 func (a *App) ShortenURL(w http.ResponseWriter, r *http.Request) {
 	var reqBody struct {
-		Path       string    `json:"path"`
-		Url        string    `json:"url"`
-		ExpireAt   string    `json:"expire_at"`
-		ExpireTime time.Time `json:"-"`
+		Path       string     `json:"path"`
+		Url        string     `json:"url"`
+		ExpireAt   string     `json:"expire_at"`
+		ExpireTime *time.Time `json:"-"`
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&reqBody)
@@ -38,7 +38,7 @@ func (a *App) ShortenURL(w http.ResponseWriter, r *http.Request) {
 		} else if now := time.Now(); t.Before(time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())) {
 			v.AddError("expire_at", "invalid 'expire_at' parameter")
 		} else {
-			reqBody.ExpireTime = t
+			reqBody.ExpireTime = &t
 		}
 	}
 

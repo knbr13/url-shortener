@@ -17,7 +17,7 @@ type URL struct {
 	CreatedAt *time.Time
 }
 
-func (u *urlStore) insertUrl(original, short string, expireTime time.Time) (int64, error) {
+func (u *urlStore) insertUrl(original, short string, expireTime *time.Time) (int64, error) {
 	res, err := u.db.Exec("INSERT INTO urls (original_url, short_url, expires_at) VALUES (?,?,?)", original, short, expireTime)
 	if err != nil {
 		return 0, err
