@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -57,4 +58,25 @@ func (a *App) ShortenURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	a.writeJSON(w, http.StatusCreated, map[string]interface{}{"id": id}, nil)
+}
+
+func (a *App) RedirectToShortenedURL(w http.ResponseWriter, r *http.Request) {
+	path := r.URL.Path[1:]
+
+	url, err := a.u.getByShortenedURL(path)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			app.errorResponse(w, http.StatusNotFound, "short url not found")
+			return
+		}
+		app.errorResponse(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+
+	if url.Expires != nil && url.Expires.Before(time.Now()) {
+		app.errorResponse(w, http.StatusGone, "short url expired")
+		return
+	}
+
+	http.Redirect(w, r, url.Original, http.StatusMovedPermanently)
 }
