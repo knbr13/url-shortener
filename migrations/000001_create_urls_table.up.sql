@@ -5,3 +5,6 @@ CREATE TABLE `urls` (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `expires_at` TIMESTAMP
 );
+
+-- Add index on short_url
+CREATE INDEX idx_short_url ON urls(`short_url`);
